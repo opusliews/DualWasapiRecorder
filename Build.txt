@@ -1,0 +1,36 @@
+Requirements:
+ - Windows 10 / 11
+ - .NET 8 SDK or higher (tested with .NET 8 / 9)
+
+---------
+
+Run in the project root (where the .csproj file is):
+dotnet add package NAudio
+dotnet add package NAudio.Lame
+
+---------
+
+Device rules
+--a must be an INPUT (capture) device
+(microphone, virtual cable output, Wavelink stream mix, etc...)
+
+--b can be either:
+an INPUT device → use --bmode input
+an OUTPUT (playback) device → use --bmode loopback
+
+---------
+
+To run:
+Lists devices:
+dotnet run -- --list
+
+Run with loopback:
+dotnet run -- --a "CABLE Output" --b "Games"  --bmode loopback
+
+Run without loopback:
+dotnet run -- --a "CABLE Output" --b "Stream Mix" --bmode input
+
+---------
+
+Press Enter to stop recording. Files are written as .mp3.part and finalized to .mp3 on clean exit.
+If it crashes for some reason the .part files should remain and be usable.
